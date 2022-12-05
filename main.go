@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/adshao/go-binance/v2/futures"
@@ -18,8 +19,14 @@ func main() {
 	ApiKey := BinanceKey.ApiKey
 	SecretKey := BinanceKey.SecretKey
 
-	futures.UseTestnet = true
 	BinanceClient := futures.NewClient(ApiKey, SecretKey)
 
-	fmt.Println(BinanceClient.APIKey)
+	res, err := BinanceClient.NewGetBalanceService().Do(context.Background())
+
+	fmt.Println(res)
+	fmt.Println(err)
+
+	for _, val := range res {
+		fmt.Println(val)
+	}
 }
